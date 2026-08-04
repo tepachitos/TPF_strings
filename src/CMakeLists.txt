@@ -1,5 +1,11 @@
 set(TPF_MODULE TPF_strings)
-add_library(${TPF_MODULE} STATIC)
+if(TPF_STRINGS_STATIC)
+  add_library(${TPF_MODULE} STATIC)
+else()
+  add_library(${TPF_MODULE} SHARED)
+endif()
+
+# Library
 target_sources(${TPF_MODULE} PRIVATE
   strbuild.c
   strview.c
@@ -12,6 +18,35 @@ target_include_directories(${TPF_MODULE} PRIVATE
   "${PROJECT_SOURCE_DIR}/include"
 )
 
+# Public headers
+file(GLOB PUBLIC_HEADERS "${PROJECT_SOURCE_DIR}/include/TPF1/*.h")
+
+# Docs
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+  set(DOXYGEN_PROJECT_NAME    "TPF_strings")
+  set(DOXYGEN_PROJECT_NUMBER  "1.0.0")
+  set(DOXYGEN_PROJECT_BRIEF   "TPF Strings utilities")
+  set(DOXYGEN_GENERATE_HTML   YES)
+  set(DOXYGEN_GENERATE_MAN    NO)
+  set(DOXYGEN_EXTRACT_PRIVATE YES)
+  set(DOXYGEN_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/docs")
+  doxygen_add_docs(${TPF_MODULE}_docs "${PROJECT_SOURCE_DIR}/include")
+endif()
+
+# Install targets
+set_target_properties(${TPF_MODULE}
+    PROPERTIES
+    PUBLIC_HEADER "${PUBLIC_HEADERS}"
+)
+install(TARGETS ${TPF_MODULE}
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    PUBLIC_HEADER DESTINATION include
+)
+
+# Unit testing
 if(TPF_STRINGS_TESTING)
   setup_test(
     NAME strbuild

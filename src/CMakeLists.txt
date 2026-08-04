@@ -20,7 +20,6 @@ target_include_directories(${TPF_MODULE} PUBLIC
 
 # Public headers
 file(GLOB PUBLIC_HEADERS "${PROJECT_SOURCE_DIR}/include/TPF1/*.h")
-message(FATAL_ERROR ${PUBLIC_HEADERS})
 
 # Docs
 find_package(Doxygen)

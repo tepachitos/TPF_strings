@@ -14,12 +14,13 @@ target_sources(${TPF_MODULE} PRIVATE
 target_link_libraries(${TPF_MODULE} PRIVATE
   SDL3
 )
-target_include_directories(${TPF_MODULE} PRIVATE
+target_include_directories(${TPF_MODULE} PUBLIC
   "${PROJECT_SOURCE_DIR}/include"
 )
 
 # Public headers
 file(GLOB PUBLIC_HEADERS "${PROJECT_SOURCE_DIR}/include/TPF1/*.h")
+message(FATAL_ERROR ${PUBLIC_HEADERS})
 
 # Docs
 find_package(Doxygen)

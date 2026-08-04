@@ -1,4 +1,4 @@
-#include <TPF/TPF_utf8.h>
+#include <TPF1/TPF_utf8.h>
 
 #include <SDL3/SDL_assert.h>
 #define UNICODE_REPLACEMENT_CHARACTER 0xFFFDu

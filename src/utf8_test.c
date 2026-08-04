@@ -10,7 +10,7 @@
 // clang-format on
 
 #include <SDL3/SDL_stdinc.h>
-#include <TPF/TPF_utf8.h>
+#include <TPF1/TPF_utf8.h>
 
 #define UNICODE_REPLACEMENT_CHARACTER 0xFFFDu
 
